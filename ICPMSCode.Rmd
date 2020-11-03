@@ -66,7 +66,7 @@ ICPMS_merged <- merge(ICPMS_tidy, sample_key) %>%
 
 ```{r}
 ### rm(list=setdiff(ls(), "ICPMS_merged"))
-saveRDS(ICPMS_merged, file = "data/tidy_ICPMS.rds")
+write.csv(ICPMS_merged, file = "data/ICPMS_merged")
 
 ```
 
@@ -93,7 +93,8 @@ AA_merge<-merge(sample_key, AA_tidy)
 
 ##clean_names(AA_tidy, case="snake")
  
-saveRDS(AA_merge, file = "data/tidy_AA.rds")
+
+write.csv(AA_merge, file = "data/tidy_AA.rds")
 
 
 
