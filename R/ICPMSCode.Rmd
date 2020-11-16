@@ -94,6 +94,6 @@ AA_merge<-merge(sample_key, AA_tidy)
 ##clean_names(AA_tidy, case="snake")
  
 
-write.csv(AA_merge, file = "data/tidy_AA.rds")
+write.csv(AA_merge, file = "data/AAData.rds")
 
 ```
