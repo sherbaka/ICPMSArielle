@@ -1,0 +1,61 @@
+---
+title: "Week2AA"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+AA<- read_csv("Data/tidy_AA.csv")
+
+```
+
+```{r}
+sample_site<- unique(filter(AA, site!= "MB", site!="")$site)
+#excluding method blank and quality control from the list of sites
+sites_analyzed<- unique(AA$site)
+
+#preveiw the lists to check for potential issues
+sample_site
+sites_analyzed
+```
+
+```{r Calibration}
+AA_cal <- NULL
+for (unique_site in sites_analyzed) {
+  #filtering for a single metal then selecting variables of interest
+  cal <- ICPMS %>%
+    filter(type == "CalStd" | type == "CalStd2" | type == "CalStd4") %>%
+    filter(site == unique_site) %>%
+    select(concentration, cps, rsd)
+  #weighted linear regression
+  w <- 1/(cal$cps*cal$rsd)^2
+  model <- lm(cal$cps ~ cal$concentration, weights = w)
+  #pulling out relevant info from model
+  slope <- model$coefficients[2]
+  intercept <- model$coefficients[1]
+  slope_std <- summary(model)$coefficients[2,2]
+  intercept_std <- summary(model)$coefficients[1,2]
+  #plotting cal curve
+  plot(cal$cps ~ cal$concentration,
+       xlab = paste("Concentration of ", unique_site, "(ppb)"),
+       ylab = "Counts per Second") +
+    abline(model, col = "red") +
+    title(paste("Calibration for ", unique_site))
+  #storing info from calibration curve
+  equation <- tibble(site = unique_site, slope, slope_std, intercept, intercept_std)
+  AA_cal <- rbind(AA_cal, equation)
+}
+
+AA_cal
+
+remove (equation, cal, slope, slope_std, intercept, intercept_std, w, model, unique_metal)
+
+
+```
