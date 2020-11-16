@@ -211,12 +211,44 @@ sample_data <- merge(ICPMS, sample_data_mb) %>%
 
 ```{r, warning=FALSE}
 #cleaning up the environment
-rm(list=ls()[!(ls()%in% c("ICPMS", "sample_data"))])
+##rm(list=ls()[!(ls()%in% c("ICPMS", "sample_data"))])
 
 ```
 
 
 ```{r}
+#now i am going to take the averages of all the metals and create a new data frame with that, not sure if I will be able to make a fucntion, i may just do it by hand
+
+###Just testing this method, not really what I need
+##sample_data2<-aggregate(sample_data[, 6:9], list(sample_data$metal), mean)
+
+#just grouping by metals for avgs, no qc site or mb
+#similar to gillians code
+AVG_concMETAL<- sample_data%>%
+  filter(site!= "QC")%>%
+  group_by(metal)%>%
+  summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
+    mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
+         lower_ci = mean_conc - CI,
+         upper_ci = mean_conc + CI)
+
+#avg of metla per site
+AVG_concSITE<- sample_data%>%
+  filter(site!= "QC")%>%
+  group_by(metal,site)%>%
+  summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
+    mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
+         lower_ci = mean_conc - CI,
+         upper_ci = mean_conc + CI)
+
+#QC site avgs
+AVG_concQC<- sample_data%>%
+  filter(site== "QC")%>%
+  group_by(metal)%>%
+  summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
+    mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
+         lower_ci = mean_conc - CI,
+         upper_ci = mean_conc + CI)
 
 
 ```
