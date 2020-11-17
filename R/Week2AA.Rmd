@@ -39,7 +39,7 @@ intercept_std <- summary(model)$coefficients[1,2]
 plot(cal$mean_abs ~ cal$concentration,
        xlab = paste("[ ] of Chromium (ppm)"),
        ylab = "Mean Abs") +
-    abline(model, col = "red") +
+    abline(model, col = "green") +
     title(paste("Calibration for Chromium"))
 equation <- tibble(metal = "Chromium", slope, slope_std, intercept, intercept_std)
 cal <- rbind(equation)
@@ -211,10 +211,24 @@ AVG_concMETAL<- sample_data%>%
     mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
          lower_ci = mean_conc - CI,
          upper_ci = mean_conc + CI)
+AVG_concALL<- sample_data%>%
+  filter(site!= "QC")%>%
+
+  summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
+    mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
+         lower_ci = mean_conc - CI,
+         upper_ci = mean_conc + CI)
+
+write.csv(sample_data, "~/ICPMSArielle/Data/AA_data2.csv")
 ```
 
 
 ```{r}
+#Lets create somehting they have in commone to merge the two tables together
+AVG_concQC$site <- "QC"
+AVG_concMETAL$site <- "NA"
+#merging them
+AVG_conc=full_join(AVG_concMETAL,AVG_concQC,by=c( "mean_conc", "sd_conc", "n", "CI", "lower_ci", "upper_ci", "site"))
 
 ```
 
