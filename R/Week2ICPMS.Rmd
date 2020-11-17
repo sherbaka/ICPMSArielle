@@ -13,7 +13,7 @@ library(tidyverse)
 
 
 ```{r}
-ICPMS<-read.csv("Data/ICPMS_tidy_example.csv")
+ICPMS<-read.csv("~/ICPMSArielle/Data/ICPMS_tidy_example.csv")
 
 ```
 
@@ -211,7 +211,7 @@ sample_data <- merge(ICPMS, sample_data_mb) %>%
 
 ```{r, warning=FALSE}
 #cleaning up the environment
-##rm(list=ls()[!(ls()%in% c("ICPMS", "sample_data"))])
+rm(list=ls()[!(ls()%in% c("ICPMS", "sample_data"))])
 
 ```
 
