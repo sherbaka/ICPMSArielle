@@ -1,0 +1,300 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={ICPMSCode},
+            pdfauthor={ArielleSherbak},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{ICPMSCode}
+\author{ArielleSherbak}
+\date{10/29/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.2     v dplyr   1.0.2
+## v tibble  3.0.4     v stringr 1.4.0
+## v tidyr   1.1.2     v forcats 0.5.0
+## v purrr   0.3.4
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(janitor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'janitor'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{icpms_data<-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"~/ICPMSArielle/Data/ICPMS_Data.csv"}\NormalTok{, }\DataTypeTok{skip=} \DecValTok{1}\NormalTok{, }\DataTypeTok{na=} \StringTok{"N/A"}\NormalTok{)}
+
+\NormalTok{sample_key <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"~/ICPMSArielle/Data/Sample_Key.csv"}\NormalTok{, }\DataTypeTok{skip=} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{RSD_data<-icpms_data }\OperatorTok{%>%}
+\StringTok{  }\CommentTok{#first the rsd columns are selected and renamed with the approptiate metal isotope}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Cr52 =}\NormalTok{ CPS.RSD,}
+         \DataTypeTok{Cr53 =}\NormalTok{ CPS.RSD}\FloatTok{.1}\NormalTok{,}
+         \DataTypeTok{As76 =}\NormalTok{ CPS.RSD}\FloatTok{.2}\NormalTok{,}
+         \DataTypeTok{Cd111 =}\NormalTok{ CPS.RSD}\FloatTok{.3}\NormalTok{,}
+         \DataTypeTok{Cd114 =}\NormalTok{ CPS.RSD}\FloatTok{.4}\NormalTok{,}
+         \DataTypeTok{Pb208 =}\NormalTok{ CPS.RSD}\FloatTok{.5}\NormalTok{,}
+         \DataTypeTok{Ge_RSD =}\NormalTok{ CPS.RSD}\FloatTok{.7}\NormalTok{,}
+\NormalTok{         Sample.Key)}\OperatorTok{%>%}
+\StringTok{  }
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }
+               \DataTypeTok{names_to=}\StringTok{"metal"}\NormalTok{, }
+               \DataTypeTok{values_to =} \StringTok{"RSD"}\NormalTok{)}
+
+
+\NormalTok{ICPMS_tidy <-}\StringTok{ }\NormalTok{icpms_data }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Cr52 =}\NormalTok{ CPS,}
+         \DataTypeTok{Cr53 =}\NormalTok{ CPS}\FloatTok{.1}\NormalTok{,}
+         \DataTypeTok{As76 =}\NormalTok{ CPS}\FloatTok{.2}\NormalTok{,}
+         \DataTypeTok{Cd111 =}\NormalTok{ CPS}\FloatTok{.3}\NormalTok{,}
+         \DataTypeTok{Cd114 =}\NormalTok{ CPS}\FloatTok{.4}\NormalTok{,}
+         \DataTypeTok{Pb208 =}\NormalTok{ CPS}\FloatTok{.5}\NormalTok{,}
+         \DataTypeTok{Ge72 =}\NormalTok{ CPS}\FloatTok{.7}\NormalTok{,}
+\NormalTok{         Sample.Key)}\OperatorTok{%>%}
+\StringTok{  }
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }
+               \DataTypeTok{names_to=}\StringTok{"metal"}\NormalTok{, }
+               \DataTypeTok{values_to =} \StringTok{"CPS"}\NormalTok{)}\OperatorTok{%>%}
+
+\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{RSD =}\NormalTok{ RSD_data}\OperatorTok{$}\NormalTok{RSD}\OperatorTok{/}\NormalTok{RSD_data}\OperatorTok{$}\NormalTok{Ge_RSD,}
+       \DataTypeTok{CPS=}\NormalTok{CPS}\OperatorTok{/}\NormalTok{Ge72)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{Ge72)}
+
+
+\KeywordTok{all}\NormalTok{(RSD_data}\OperatorTok{$}\NormalTok{Sample.Key}\OperatorTok{==}\NormalTok{ICPMS_tidy}\OperatorTok{$}\NormalTok{Sample.Key, RSD_data}\OperatorTok{$}\NormalTok{metal}\OperatorTok{==}\NormalTok{ICPMS_tidy}\OperatorTok{$}\NormalTok{metal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ICPMS_merged <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(ICPMS_tidy, sample_key) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{clean_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{### rm(list=setdiff(ls(), "ICPMS_merged"))}
+\KeywordTok{write.csv}\NormalTok{(ICPMS_merged, }\DataTypeTok{file =} \StringTok{"~/ICPMSArielle/Data/ICPMS_merged"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AA_Data <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"~/ICPMSArielle/Data/AA_Data.csv"}\NormalTok{, }\DataTypeTok{skip =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   `Sample Key` = col_character(),
+##   `Mean Abs.` = col_double(),
+##   `%RSD` = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AA_tidy<-AA_Data}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{Sample.Key =}\StringTok{"Sample Key"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{percentRSD =} \StringTok{"%RSD"}\NormalTok{)}
+
+
+\NormalTok{AA_tidy}\OperatorTok{$}\NormalTok{percentRSD[AA_tidy}\OperatorTok{$}\NormalTok{percentRSD }\OperatorTok{==}\StringTok{ "HIGH"}\NormalTok{] <-}\StringTok{ }\FloatTok{999.99}
+
+\NormalTok{AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key[AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key }\OperatorTok{==}\StringTok{ "check10"}\NormalTok{] <-}\StringTok{ }\DecValTok{80}
+\NormalTok{AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key[AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key }\OperatorTok{==}\StringTok{ "Sample Blank"}\NormalTok{] <-}\StringTok{ }\DecValTok{90}
+
+\NormalTok{AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(AA_tidy}\OperatorTok{$}\NormalTok{Sample.Key)}
+\NormalTok{AA_tidy}\OperatorTok{$}\NormalTok{percentRSD <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(AA_tidy}\OperatorTok{$}\NormalTok{percentRSD)}
+
+
+\NormalTok{AA_merge<-}\KeywordTok{merge}\NormalTok{(sample_key, AA_tidy)}
+
+
+\CommentTok{##clean_names(AA_tidy, case="snake")}
+ 
+
+\KeywordTok{write.csv}\NormalTok{(AA_merge, }\DataTypeTok{file =} \StringTok{"~/ICPMSArielle/Data/AAData.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AA_imported <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"~/ICPMSArielle/Data/AA_Data.csv"}\NormalTok{,}
+                        \DataTypeTok{skip =} \DecValTok{4}\NormalTok{,}
+                        \DataTypeTok{na =} \StringTok{"N/A"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   `Sample Key` = col_character(),
+##   `Mean Abs.` = col_double(),
+##   `%RSD` = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AA_imported <-}\StringTok{ }\NormalTok{AA_imported }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{Sample.Key =} \StringTok{"Sample Key"}\NormalTok{)}
+\NormalTok{sample_key <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"~/ICPMSArielle/Data/Sample_Key.csv"}\NormalTok{, }
+                           \DataTypeTok{skip =} \DecValTok{0}\NormalTok{)      }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AA_merged <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(AA_imported, sample_key) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{clean_names}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.csv}\NormalTok{(AA_merged, }\StringTok{"~/ICPMSArielle/Data/AA_data2.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}

@@ -1,6 +1,8 @@
 ---
 title: "Week2AA"
-output: pdf_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -14,8 +16,8 @@ library(readr)
 
 ```{r, warning=FALSE}
 
-AA<-read_csv("~/ICPMSArielle/Data/AA_data2.csv")%>%
-mutate(percent_rsd = as.numeric(percent_rsd)*100)
+AA<-read_csv("~/ICPMSArielle/Data/AA_DATA.csv") %>%
+  mutate(percent_rsd = as.numeric(percent_rsd)*100)
 
 ```
 
@@ -226,11 +228,25 @@ write.csv(AVG_concSITE, "~/ICPMSArielle/Data/AAAVG_concSITE.csv")
 
 
 ```{r}
-#Lets create somehting they have in commone to merge the two tables together
-AVG_concQC$site <- "QC"
-AVG_concMETAL$site <- "NA"
-#merging them
-AVG_conc=full_join(AVG_concMETAL,AVG_concQC,by=c( "mean_conc", "sd_conc", "n", "CI", "lower_ci", "upper_ci", "site"))
+t.test2 <- function(m1,m2,s1,s2,n1,n2,m0=0,equal.variance=FALSE)
+{
+    if( equal.variance==FALSE ) 
+    {
+        se <- sqrt( (s1^2/n1) + (s2^2/n2) )
+        # welch-satterthwaite df
+        df <- ( (s1^2/n1 + s2^2/n2)^2 )/( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
+    } else
+    {
+        # pooled standard deviation, scaled by the sample sizes
+        se <- sqrt( (1/n1 + 1/n2) * ((n1-1)*s1^2 + (n2-1)*s2^2)/(n1+n2-2) ) 
+        df <- n1+n2-2
+    }      
+    t <- (m1-m2-m0)/se 
+    dat <- c(m1-m2, se, t, 2*pt(-abs(t),df))    
+    names(dat) <- c("Difference of means", "Std Error", "t", "p-value")
+    return(dat) 
+}
+
 
 ```
 

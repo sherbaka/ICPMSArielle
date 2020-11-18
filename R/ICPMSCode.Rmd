@@ -2,7 +2,9 @@
 title: "ICPMSCode"
 author: "ArielleSherbak"
 date: "10/29/2020"
-output: pdf_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -66,7 +68,7 @@ ICPMS_merged <- merge(ICPMS_tidy, sample_key) %>%
 
 ```{r}
 ### rm(list=setdiff(ls(), "ICPMS_merged"))
-write.csv(ICPMS_merged, file = "data/ICPMS_merged")
+write.csv(ICPMS_merged, file = "~/ICPMSArielle/Data/ICPMS_merged")
 
 ```
 
@@ -114,5 +116,5 @@ AA_merged <- merge(AA_imported, sample_key) %>%
 ```
 
 ```{r}
-write.csv(AA_merged, "~/ICPMSArielle/Data/AA_data2.csv")
+write.csv(AA_merged, "~/ICPMSArielle/Data/AA_DATA.csv")
 ```

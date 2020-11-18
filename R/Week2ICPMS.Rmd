@@ -1,6 +1,8 @@
 ---
 title: "Week2ICPMSLab"
-output: pdf_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -463,8 +465,4 @@ t.test2(3.400937e+01,	21.0045338, 1.694230e+01, 12.14064641, 5,22 )
 t.test2(3.494743e+01,21.5752868, 1.743691e+01, 12.51689764, 5, 22)
 ```
 
-```{r}
 
-#just pulling out CI to make it easier to see
-CI <- filter(AVG_concSITE$CI)
-```
