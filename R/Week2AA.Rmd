@@ -204,7 +204,7 @@ AVG_concSITE<- sample_data%>%
     mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
          lower_ci = mean_conc - CI,
          upper_ci = mean_conc + CI)
-AVG_concMETAL<- sample_data%>%
+AVG_concQC<- sample_data%>%
   filter(site== "QC")%>%
   group_by(site)%>%
   summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
@@ -220,6 +220,8 @@ AVG_concALL<- sample_data%>%
          upper_ci = mean_conc + CI)
 
 write.csv(sample_data, "~/ICPMSArielle/Data/AA_data2.csv")
+
+write.csv(AVG_concSITE, "~/ICPMSArielle/Data/AAAVG_concSITE.csv")
 ```
 
 
@@ -234,5 +236,17 @@ AVG_conc=full_join(AVG_concMETAL,AVG_concQC,by=c( "mean_conc", "sd_conc", "n", "
 
 
 ```{r}
+t.test2(48.91812,23.05865445, 9.882947,7.41209171, 12, 4  )
+t.test2(48.91812,16.151985, 9.882947,5.164864565, 12, 5  )
+t.test2(48.91812,26.61849284, 9.882947,13.26031917, 12, 5  )
+t.test2(48.91812,9.840144961, 9.882947,4.102673005, 12, 3  )
+t.test2(48.91812,13.34216869, 9.882947,7.130288564, 12, 2  )
+t.test2(48.91812,6.94623958, 9.882947,5.13474049, 12, 3  )
 
+t.test2(48.91812,17.41502, 9.882947,10.24718, 12, 22  )
+```
+
+```{r}
+#f-test for the icpms vs the aa
+t.test2(48.91812,17.41502, 9.882947, 10.24718, 12,22 )
 ```

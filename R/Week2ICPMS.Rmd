@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(reshape2)
 ```
 
 
@@ -234,7 +235,7 @@ AVG_concMETAL<- sample_data%>%
 
 #avg of metla per site
 AVG_concSITE<- sample_data%>%
-  filter(site!= "QC")%>%
+
   group_by(metal,site)%>%
   summarise(mean_conc = mean(conc_blanked), sd_conc = sd(conc_blanked), n = n()) %>%
     mutate(CI = qnorm(0.975)*sd_conc/sqrt(n),
@@ -250,6 +251,132 @@ AVG_concQC<- sample_data%>%
          lower_ci = mean_conc - CI,
          upper_ci = mean_conc + CI)
 
+AVG_concSITE <- AVG_concSITE %>%
+  mutate(CI = CI/1000)
+write.csv(AVG_concSITE, "~/ICPMSArielle/Data/AVG_concSITE.csv")
+```
+```{r}
+
+AVG_concSITE <- AVG_concSITE %>%
+  mutate(mean_conc = mean_conc/1000,
+         sd_conc = sd_conc/1000,
+         lower_ci = lower_ci/1000,
+         upper_ci = upper_ci/1000, 
+         CI = CI/1000
+         )
+
+AVG_concMETAL <- AVG_concMETAL %>%
+  mutate(mean_conc = mean_conc/1000,
+         sd_conc = sd_conc/1000,
+         lower_ci = lower_ci/1000,
+         upper_ci = upper_ci/1000, 
+         CI = CI/1000
+         )
+AVG_concSITE_PB <- AVG_concSITE %>%
+  filter(metal == "Pb208")
+
+AVG_concSITE_AS <- AVG_concSITE %>%
+  filter(metal == "As75")
+
+AVG_concSITE_CD111 <- AVG_concSITE %>%
+  filter(metal == "Cd111")
+
+AVG_concSITE_CD114 <- AVG_concSITE %>%
+  filter(metal == "Cd114")
+
+AVG_concSITE_Cr52 <- AVG_concSITE %>%
+  filter(metal == "Cr52")
+
+AVG_concSITE_Cr53 <- AVG_concSITE %>%
+  filter(metal == "Cr53")
+
+```
+
+```{r}
+
+##plots
+
+p = ggplot(data=AVG_concSITE_PB,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =269.5352927, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+
+
+p = ggplot(data=AVG_concSITE_AS,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =3.2445059, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+ 
+ p = ggplot(data=AVG_concSITE_CD111,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =0.1310686, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+
+ p = ggplot(data=AVG_concSITE_CD114,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =0.2303492, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+
+
+  p = ggplot(data=AVG_concSITE_Cr52,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =21.0045338, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+
+  p = ggplot(data=AVG_concSITE_Cr53,
+    aes(x = site,y = mean_conc, ymin = lower_ci, ymax = upper_ci ))+
+    geom_pointrange(aes(col=site))+
+    geom_hline(aes(fill=site),yintercept =21.5752868, linetype=2)+
+    xlab('Metal')+ ylab("")+
+    geom_errorbar(aes(ymin=lower_ci, ymax=upper_ci,col=site),width=0.5,cex=1)+ 
+    facet_wrap(~metal,strip.position="left",nrow=9,scales = "free_y") +
+    theme(plot.title=element_text(size=16,face="bold"),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+)+ coord_flip()
+ p
+ 
+
 
 ```
 
@@ -262,8 +389,25 @@ AVG_concMETAL$site <- "NA"
 #merging them
 AVG_conc=full_join(AVG_concMETAL,AVG_concQC,by=c("metal", "mean_conc", "sd_conc", "n", "CI", "lower_ci", "upper_ci", "site"))
 write.csv(AVG_conc, "~/ICPMSArielle/Data/AVG_conc.csv")
+write.csv(AVG_concSITE, "~/ICPMSArielle/Data/AVG_concSITE.csv")
 ```
 
+```{r}
+##making some nicer loooking dataframes for export
+AVG_concSITE_TRANS <- AVG_concSITE  %>%
+dplyr::select(site, mean_conc, metal,)
+
+AVG_concSITE_TRANS_SD <- AVG_concSITE  %>%
+dplyr::select(site, sd_conc, metal,)
+AVG_concSITE_TRANS <- melt(AVG_concSITE_TRANS, id.vars = c("site", "metal"))
+
+AVG_concSITE_TRANS_SD <- melt(AVG_concSITE_TRANS_SD, id.vars = c("site", "metal"))
+AVG_concSITE_TRANS_SD <-  dcast(AVG_concSITE_TRANS_SD, site ~ metal)
+
+AVG_concSITE_TRANS <-  dcast(AVG_concSITE_TRANS, site ~ metal)
+write.csv(AVG_concSITE_TRANS, "~/ICPMSArielle/Data/AVG_concSITE_TRANS.csv")
+write.csv(AVG_concSITE_TRANS_SD, "~/ICPMSArielle/Data/AVG_concSITE_TRANS_SD.csv")
+```
 
 ```{r}
 #I found this function on stack exchange
@@ -296,7 +440,14 @@ t.test2 <- function(m1,m2,s1,s2,n1,n2,m0=0,equal.variance=FALSE)
 ```
 
 ```{r}
-t.test2(3244.505905, 13945.41904,1335.144796, 2633.02005,22, 12)
+#comaparing between metals
+t.test2(13945.41904, 3244.505905,2633.02005, 1335.144796,12, 22)
+t.test2(2378.70526,131.068641, 426.7552319, 40.39792594, 12, 22 )
+t.test2(2555.015649, 230.3492002,482.7139834,116.6396999, 12, 22  )
+t.test2(57831.13336,21004.53376, 12140.64641, 482.7139834, 12, 22 )
+t.test2(59315.0092,21575.28679, 11585.50655, 12516.89764,12, 22 )
+t.test2(269535.2927, 1191817.581,222762.7727,252957.7849, 22,12 )
+t.test2(1191817.581, 269535.2927,252957.7849,222762.7727, 12,22 )
 
 
 ```
@@ -304,8 +455,16 @@ t.test2(3244.505905, 13945.41904,1335.144796, 2633.02005,22, 12)
 
 
 ```{r}
+##Now lets compare the site c cr  to each other
 
-
+#cr52
+t.test2(3.400937e+01,	21.0045338, 1.694230e+01, 12.14064641, 5,22 )
+#Cr53
+t.test2(3.494743e+01,21.5752868, 1.743691e+01, 12.51689764, 5, 22)
 ```
 
+```{r}
 
+#just pulling out CI to make it easier to see
+CI <- filter(AVG_concSITE$CI)
+```
